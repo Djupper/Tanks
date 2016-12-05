@@ -5,9 +5,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
-/**
- * Created by Prog on 30.11.2016.
- */
+
 public class ResourceLoader {
     public static final String PATH = "res/";
 
