@@ -3,14 +3,10 @@ package com.thebyteguru.game;
 
 import com.thebyteguru.IO.Input;
 import com.thebyteguru.display.Display;
-import com.thebyteguru.graphics.Sprite;
-import com.thebyteguru.graphics.SpriteSheet;
+import com.thebyteguru.game.level.Level;
 import com.thebyteguru.graphics.TextureAtlas;
 
 import java.awt.*;
-import java.awt.event.KeyEvent;
-
-import static sun.audio.AudioPlayer.player;
 
 public class Game implements Runnable {
 
@@ -30,6 +26,8 @@ public class Game implements Runnable {
     private Input input;
     private TextureAtlas atlas;
     private Player player;
+    private Level lvl;
+
 //    private SpriteSheet sheet;
 //    private Sprite sprite;
 
@@ -50,7 +48,8 @@ public class Game implements Runnable {
         input = new Input();
         Display.addInputListener(input);
         atlas = new TextureAtlas(ATLAS_FILE_NAME);
-        player =  new Player(300, 300, 2, 3, atlas);
+        player =  new Player(300, 300, 2, 0.3f, atlas);
+        lvl = new Level(atlas);
 //        sheet = new SpriteSheet(atlas.cut(1 * 16, 9 * 16, 16 * 2, 16), 2, 16);
 //        sprite = new Sprite(sheet,1);
 
@@ -78,6 +77,7 @@ public class Game implements Runnable {
 
     private void update() {
         player.update(input);
+        lvl.update();
 //
 //        if (input.getKey(KeyEvent.VK_UP))
 //            y -= speed;
@@ -93,7 +93,10 @@ public class Game implements Runnable {
 
     private void render() {
         Display.clear();
+        lvl.render(graphics);
         player.render(graphics);
+        lvl.renderGrass(graphics);
+
 
         //  graphics.setColor(Color.white);
         // graphics.drawImage(atlas.cut(0,0,16,16), 300,300, null);
